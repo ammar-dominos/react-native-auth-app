@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../contexts';
-import { Input, Button, MessageCard, LoadingSpinner } from '../../components/ui';
+import { Input, Button, LoadingSpinner, Icon } from '../../components/ui';
+import { useFormValidation } from '../../hooks';
+import { validateName, validateEmail, validatePassword, validateConfirmPassword, showErrorAlert } from '../../utils';
 import { signupScreenStyles as styles } from './SignupScreen.styles';
 
 type AuthStackParamList = {
@@ -22,91 +24,44 @@ export const SignupScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
   const { signup, isLoading } = useAuth();
   
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errors, setErrors] = useState<{
-    name?: string;
-    email?: string;
-    password?: string;
-    confirmPassword?: string;
-    general?: string;
-  }>({});
-
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const validatePassword = (password: string): boolean => {
-    return password.length >= 6;
-  };
-
-  const validateName = (name: string): boolean => {
-    return name.trim().length >= 2;
-  };
-
-  const validateForm = (): boolean => {
-    const newErrors: typeof errors = {};
-
-    // Name validation
-    if (!name.trim()) {
-      newErrors.name = 'Full name is required';
-    } else if (!validateName(name)) {
-      newErrors.name = 'Name must be at least 2 characters long';
-    }
-
-    // Email validation
-    if (!email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!validateEmail(email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-
-    // Password validation
-    if (!password) {
-      newErrors.password = 'Password is required';
-    } else if (!validatePassword(password)) {
-      newErrors.password = 'Password must be at least 6 characters long';
-    }
-
-    // Confirm password validation
-    if (!confirmPassword) {
-      newErrors.confirmPassword = 'Please confirm your password';
-    } else if (password !== confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+    const { fields, setValue, validateAll, getValues } = useFormValidation({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    validationSchema: {
+      name: validateName,
+      email: validateEmail,
+      password: validatePassword,
+      confirmPassword: validatePassword, // We'll handle confirm password validation separately
+    },
+  });
 
   const handleSignup = async () => {
-    // Clear previous errors
-    setErrors({});
+    if (!validateAll()) {
+      return;
+    }
 
-    // Validate form
-    if (!validateForm()) {
+    // Additional confirm password validation
+    const values = getValues();
+    const confirmPasswordValidation = validateConfirmPassword(values.password, values.confirmPassword);
+    if (!confirmPasswordValidation.isValid) {
+      showErrorAlert('Validation Error', confirmPasswordValidation.error || 'Passwords do not match');
       return;
     }
 
     try {
       await signup({ 
-        name: name.trim(), 
-        email: email.trim(), 
-        password 
+        name: values.name.trim(), 
+        email: values.email.trim(), 
+        password: values.password 
       });
       // Navigation will be handled by the parent component based on auth state
     } catch (error) {
       const errorMessage = (error as Error).message;
-      setErrors({ general: errorMessage || 'An error occurred during signup' });
-    }
-  };
-
-  const clearError = (field: keyof typeof errors) => {
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+      showErrorAlert('Signup Failed', errorMessage || 'An error occurred during signup');
     }
   };
 
@@ -137,7 +92,7 @@ export const SignupScreen: React.FC = () => {
           <View style={styles.header}>
             <View style={styles.logoContainer}>
               <View style={styles.logo}>
-                <Text style={styles.logoText}>🚀</Text>
+                <Icon name="rocket" size={48} color="#FFFFFF" />
               </View>
             </View>
             <Text style={styles.heading}>Create Account</Text>
@@ -152,13 +107,9 @@ export const SignupScreen: React.FC = () => {
             <Input
               label="Full Name"
               placeholder="Enter your full name"
-              value={name}
-              onChangeText={(text: string) => {
-                setName(text);
-                clearError('name');
-                clearError('general');
-              }}
-              error={errors.name}
+              value={fields.name.value}
+              onChangeText={(text: string) => setValue('name', text)}
+              error={fields.name.error}
               autoCapitalize="words"
               autoCorrect={false}
               editable={!isLoading}
@@ -168,13 +119,9 @@ export const SignupScreen: React.FC = () => {
             <Input
               label="Email Address"
               placeholder="Enter your email"
-              value={email}
-              onChangeText={(text: string) => {
-                setEmail(text);
-                clearError('email');
-                clearError('general');
-              }}
-              error={errors.email}
+              value={fields.email.value}
+              onChangeText={(text: string) => setValue('email', text)}
+              error={fields.email.error}
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
@@ -185,14 +132,9 @@ export const SignupScreen: React.FC = () => {
             <Input
               label="Password"
               placeholder="Create a password"
-              value={password}
-              onChangeText={(text: string) => {
-                setPassword(text);
-                clearError('password');
-                clearError('confirmPassword');
-                clearError('general');
-              }}
-              error={errors.password}
+              value={fields.password.value}
+              onChangeText={(text: string) => setValue('password', text)}
+              error={fields.password.error}
               secureTextEntry
               editable={!isLoading}
             />
@@ -201,21 +143,12 @@ export const SignupScreen: React.FC = () => {
             <Input
               label="Confirm Password"
               placeholder="Confirm your password"
-              value={confirmPassword}
-              onChangeText={(text: string) => {
-                setConfirmPassword(text);
-                clearError('confirmPassword');
-                clearError('general');
-              }}
-              error={errors.confirmPassword}
+              value={fields.confirmPassword.value}
+              onChangeText={(text: string) => setValue('confirmPassword', text)}
+              error={fields.confirmPassword.error}
               secureTextEntry
               editable={!isLoading}
             />
-
-            {/* General Error Message */}
-            {errors.general && (
-              <MessageCard type="error" message={errors.general} />
-            )}
 
             {/* Signup Button */}
             <Button

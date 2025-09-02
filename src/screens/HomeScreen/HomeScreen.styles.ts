@@ -75,9 +75,6 @@ export const homeScreenStyles = StyleSheet.create({
     alignItems: 'center',
     marginRight: spacing.md,
   },
-  iconText: {
-    fontSize: 24,
-  },
   infoContent: {
     flex: 1,
   },
@@ -111,14 +108,11 @@ export const homeScreenStyles = StyleSheet.create({
     marginBottom: spacing.md,
     ...shadows.sm,
   },
-  actionButtonIcon: {
-    fontSize: 32,
-    marginBottom: spacing.sm,
-  },
   actionButtonText: {
     fontSize: typography.fontSizes.sm,
     fontWeight: typography.fontWeights.semibold,
     color: colors.text.primary,
+    marginTop: spacing.sm,
   },
   logoutButton: {
     marginTop: spacing.lg,

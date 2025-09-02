@@ -4,35 +4,30 @@ import {
   Text,
   TouchableOpacity,
   SafeAreaView,
-  Alert,
 } from 'react-native';
 import { useAuth } from '../../contexts';
+import { useConfirmation } from '../../hooks/useConfirmation';
+import { showErrorAlert } from '../../utils/alerts';
+import { getMemberSinceText } from '../../utils/dateUtils';
 import { dashboardScreenStyles as styles } from './DashboardScreen.styles';
 
 export const DashboardScreen: React.FC = () => {
   const { user, logout, isLoading } = useAuth();
+  const { confirm } = useConfirmation();
 
   const handleLogout = async () => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Logout',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await logout();
-            } catch (error) {
-              Alert.alert('Error', 'Failed to logout. Please try again.');
-            }
-          },
-        },
-      ]
+    confirm(
+      {
+        title: 'Logout',
+        message: 'Are you sure you want to logout?',
+      },
+      async () => {
+        try {
+          await logout();
+        } catch (error) {
+          showErrorAlert('Error', 'Failed to logout. Please try again.');
+        }
+      }
     );
   };
 
@@ -63,7 +58,7 @@ export const DashboardScreen: React.FC = () => {
           <View style={styles.infoCard}>
             <Text style={styles.infoLabel}>Member Since</Text>
             <Text style={styles.infoValue}>
-              {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+              {user?.createdAt ? getMemberSinceText(user.createdAt) : 'N/A'}
             </Text>
           </View>
         </View>

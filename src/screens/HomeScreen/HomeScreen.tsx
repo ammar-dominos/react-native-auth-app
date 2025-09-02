@@ -5,36 +5,33 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
-  Alert,
 } from 'react-native';
 import { Button, MessageCard, LoadingSpinner, Icon } from '../../components/ui';
 import { useAuth } from '../../contexts';
+import { useConfirmation } from '../../hooks';
+import { showErrorAlert, getMemberSinceText } from '../../utils';
 import { homeScreenStyles as styles } from './HomeScreen.styles';
 
 export const HomeScreen: React.FC = () => {
   const { user, logout, isLoading } = useAuth();
+  const { confirm } = useConfirmation();
 
   const handleLogout = async () => {
-    Alert.alert(
-      'Sign Out',
-      'Are you sure you want to sign out of your account?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Sign Out',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await logout();
-            } catch (error) {
-              Alert.alert('Error', 'Failed to sign out. Please try again.');
-            }
-          },
-        },
-      ]
+    confirm(
+      {
+        title: 'Sign Out',
+        message: 'Are you sure you want to sign out of your account?',
+      },
+      async () => {
+        try {
+          await logout();
+        } catch (error) {
+          showErrorAlert(
+            'Error',
+            'Failed to sign out. Please try again.'
+          );
+        }
+      }
     );
   };
 
@@ -96,7 +93,7 @@ export const HomeScreen: React.FC = () => {
           {/* User ID Card */}
           <View style={styles.infoCard}>
             <View style={styles.infoIcon}>
-              <Text style={styles.iconText}>🆔</Text>
+              <Icon name="id-card" size={24} color="#007AFF" />
             </View>
             <View style={styles.infoContent}>
               <Text style={styles.infoLabel}>User ID</Text>
@@ -107,16 +104,12 @@ export const HomeScreen: React.FC = () => {
           {/* Member Since Card */}
           <View style={styles.infoCard}>
             <View style={styles.infoIcon}>
-              <Text style={styles.iconText}>📅</Text>
+              <Icon name="calendar" size={24} color="#007AFF" />
             </View>
             <View style={styles.infoContent}>
               <Text style={styles.infoLabel}>Member Since</Text>
               <Text style={styles.infoValue}>
-                {user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                }) : 'N/A'}
+                {user?.createdAt ? getMemberSinceText(user.createdAt) : 'N/A'}
               </Text>
             </View>
           </View>
@@ -135,7 +128,7 @@ export const HomeScreen: React.FC = () => {
           
           <View style={styles.actionButtons}>
             <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionButtonIcon}>⚙️</Text>
+              <Icon name="settings" size={20} color="#666" />
               <Text style={styles.actionButtonText}>Settings</Text>
             </TouchableOpacity>
             
@@ -145,12 +138,12 @@ export const HomeScreen: React.FC = () => {
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.actionButton}>
-              <Icon name="home" size={20} color="#666" />
+              <Icon name="notifications" size={20} color="#666" />
               <Text style={styles.actionButtonText}>Notifications</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionButtonIcon}>❓</Text>
+              <Icon name="help" size={20} color="#666" />
               <Text style={styles.actionButtonText}>Help</Text>
             </TouchableOpacity>
           </View>

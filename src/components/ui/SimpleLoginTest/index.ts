@@ -1,1 +1,0 @@
-export { SimpleLoginTest } from './SimpleLoginTest';

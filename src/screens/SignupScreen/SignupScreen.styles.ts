@@ -36,10 +36,6 @@ export const signupScreenStyles = StyleSheet.create({
     alignItems: 'center',
     ...shadows.lg,
   },
-  logoText: {
-    fontSize: 40,
-    color: colors.text.inverse,
-  },
   heading: {
     fontSize: 32,
     fontWeight: typography.fontWeights.bold,

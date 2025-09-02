@@ -20,6 +20,7 @@ export type IconName =
   | 'user'
   | 'person'
   | 'account'
+  | 'id-card'
   
   // Communication
   | 'email'
@@ -30,12 +31,17 @@ export type IconName =
   | 'dashboard'
   | 'logout'
   | 'sign-out'
+  | 'settings'
+  | 'calendar'
+  | 'help'
+  | 'notifications'
   
   // General
   | 'check'
   | 'checkmark'
   | 'close'
-  | 'menu';
+  | 'menu'
+  | 'rocket';
 
 export interface IconProps {
   name: IconName;
@@ -55,6 +61,7 @@ const iconMap: Record<IconName, { library: string; iconName: string }> = {
   'user': { library: 'Feather', iconName: 'user' },
   'person': { library: 'MaterialIcons', iconName: 'person' },
   'account': { library: 'MaterialCommunityIcons', iconName: 'account' },
+  'id-card': { library: 'MaterialIcons', iconName: 'badge' },
   
   // Communication
   'email': { library: 'MaterialIcons', iconName: 'email' },
@@ -65,12 +72,17 @@ const iconMap: Record<IconName, { library: string; iconName: string }> = {
   'dashboard': { library: 'MaterialIcons', iconName: 'dashboard' },
   'logout': { library: 'MaterialIcons', iconName: 'logout' },
   'sign-out': { library: 'Feather', iconName: 'log-out' },
+  'settings': { library: 'Feather', iconName: 'settings' },
+  'calendar': { library: 'Feather', iconName: 'calendar' },
+  'help': { library: 'Feather', iconName: 'help-circle' },
+  'notifications': { library: 'Feather', iconName: 'bell' },
   
   // General
   'check': { library: 'Feather', iconName: 'check' },
   'checkmark': { library: 'Ionicons', iconName: 'checkmark' },
   'close': { library: 'Feather', iconName: 'x' },
   'menu': { library: 'Feather', iconName: 'menu' },
+  'rocket': { library: 'MaterialCommunityIcons', iconName: 'rocket' },
 };
 
 export const Icon: React.FC<IconProps> = ({ 

@@ -6,13 +6,14 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
-  Alert,
   Keyboard,
   SafeAreaView,
 } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../contexts';
 import { Input, Button, Icon } from '../../components/ui';
+import { useFormValidation } from '../../hooks';
+import { validateEmail, validatePassword, showErrorAlert } from '../../utils';
 import { colors } from '../../styles/theme';
 import { loginScreenStyles as styles } from './LoginScreen.styles';
 
@@ -21,72 +22,39 @@ type AuthStackParamList = {
   Signup: undefined;
 };
 
-interface FormData {
-  email: string;
-  password: string;
-}
-
-interface FormErrors {
-  email?: string;
-  password?: string;
-}
-
 export const LoginScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
   const { login, isLoading } = useAuth();
-  const [formData, setFormData] = useState<FormData>({
-    email: '',
-    password: '',
+  
+  const { fields, setValue, validateAll, getValues } = useFormValidation({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: {
+      email: validateEmail,
+      password: validatePassword,
+    },
   });
-  const [errors, setErrors] = useState<FormErrors>({});
-
-  const validateForm = useCallback((): boolean => {
-    const newErrors: FormErrors = {};
-
-    // Email validation
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-
-    // Password validation
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  }, [formData]);
-
-  const handleInputChange = useCallback((field: keyof FormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
-    }
-  }, [errors]);
 
   const handleLogin = useCallback(async () => {
-    if (!validateForm()) {
+    if (!validateAll()) {
       return;
     }
 
     Keyboard.dismiss();
 
     try {
-      await login({ email: formData.email, password: formData.password });
+      const values = getValues();
+      await login({ email: values.email, password: values.password });
       // Navigation will be handled by the auth context
     } catch (error) {
-      Alert.alert(
+      showErrorAlert(
         'Login Failed',
-        error instanceof Error ? error.message : 'An unexpected error occurred',
-        [{ text: 'OK' }]
+        error instanceof Error ? error.message : 'An unexpected error occurred'
       );
     }
-  }, [formData, validateForm, login]);
+  }, [validateAll, getValues, login]);
 
   const handleSignUpNavigation = useCallback(() => {
     navigation.navigate('Signup');
@@ -124,9 +92,9 @@ export const LoginScreen: React.FC = () => {
             <Input
               label="Email"
               placeholder="Enter your email"
-              value={formData.email}
-              onChangeText={(value: string) => handleInputChange('email', value)}
-              error={errors.email}
+              value={fields.email.value}
+              onChangeText={(value: string) => setValue('email', value)}
+              error={fields.email.error}
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
@@ -137,9 +105,9 @@ export const LoginScreen: React.FC = () => {
             <Input
               label="Password"
               placeholder="Enter your password"
-              value={formData.password}
-              onChangeText={(value: string) => handleInputChange('password', value)}
-              error={errors.password}
+              value={fields.password.value}
+              onChangeText={(value: string) => setValue('password', value)}
+              error={fields.password.error}
               secureTextEntry
               returnKeyType="done"
               onSubmitEditing={handleLogin}
