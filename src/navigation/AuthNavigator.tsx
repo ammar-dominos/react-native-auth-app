@@ -1,9 +1,14 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreenNav, SignupScreenNav } from '../screens';
-import { AuthStackParamList } from './types';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { LoginScreen, SignupScreen } from '../screens';
+import { colors } from '../styles/theme';
 
-const Stack = createStackNavigator<AuthStackParamList>();
+export type AuthStackParamList = {
+  Login: undefined;
+  Signup: undefined;
+};
+
+const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 export const AuthNavigator: React.FC = () => {
   return (
@@ -11,18 +16,23 @@ export const AuthNavigator: React.FC = () => {
       initialRouteName="Login"
       screenOptions={{
         headerShown: false,
-        cardStyle: { backgroundColor: '#f8f9fa' },
+        contentStyle: { backgroundColor: colors.background.secondary },
+        animation: 'slide_from_right',
       }}
     >
       <Stack.Screen 
         name="Login" 
-        component={LoginScreenNav} 
-        options={{ title: 'Login' }}
+        component={LoginScreen}
+        options={{
+          title: 'Sign In',
+        }}
       />
       <Stack.Screen 
         name="Signup" 
-        component={SignupScreenNav} 
-        options={{ title: 'Sign Up' }}
+        component={SignupScreen}
+        options={{
+          title: 'Create Account',
+        }}
       />
     </Stack.Navigator>
   );

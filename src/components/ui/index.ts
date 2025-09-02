@@ -1,7 +1,8 @@
-export { EnhancedInput } from './EnhancedInput';
-export { EnhancedButton } from './EnhancedButton';
+export { Input } from './Input';
+export { Button } from './Button';
 export { MessageCard } from './MessageCard';
 export { LoadingSpinner } from './LoadingSpinner';
 export { PasswordInput } from './PasswordInput';
-export { DebugStorage } from './DebugStorage';
 export { SimpleLoginTest } from './SimpleLoginTest';
+export { Icon } from './Icon';
+export type { IconProps, IconName } from './Icon';

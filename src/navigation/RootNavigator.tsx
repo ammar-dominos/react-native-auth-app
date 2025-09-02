@@ -1,65 +1,45 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../contexts';
 import { AuthNavigator } from './AuthNavigator';
-import { AppNavigator } from './AppNavigator';
-import { RootStackParamList } from './types';
-import { View, Text, StyleSheet } from 'react-native';
+import { HomeScreen } from '../screens';
+import { LoadingSpinner } from '../components/ui';
+import { SafeAreaView } from 'react-native';
+import { commonStyles } from '../styles/commonStyles';
 
-const Stack = createStackNavigator<RootStackParamList>();
+export type RootStackParamList = {
+  Auth: undefined;
+  Main: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <Text style={styles.loadingText}>Loading...</Text>
-      </View>
+      <SafeAreaView style={commonStyles.centerContainer}>
+        <LoadingSpinner size="large" text="Loading..." />
+      </SafeAreaView>
     );
   }
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {isAuthenticated ? (
-        <Stack.Screen
-          name="App"
-          component={AppNavigator}
-          options={{ 
-            cardStyleInterpolator: ({ current }) => ({
-              cardStyle: {
-                opacity: current.progress,
-              },
-            }),
-          }}
-        />
-      ) : (
-        <Stack.Screen
-          name="Auth"
-          component={AuthNavigator}
-          options={{ 
-            cardStyleInterpolator: ({ current }) => ({
-              cardStyle: {
-                opacity: current.progress,
-              },
-            }),
-          }}
-        />
-      )}
-    </Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          animation: 'fade',
+        }}
+      >
+        {isAuthenticated ? (
+          <Stack.Screen name="Main" component={HomeScreen} />
+        ) : (
+          <Stack.Screen name="Auth" component={AuthNavigator} />
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: '#f8f9fa',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  loadingText: {
-    fontSize: 18,
-    color: '#6b7280',
-    fontWeight: '500',
-  },
-});
