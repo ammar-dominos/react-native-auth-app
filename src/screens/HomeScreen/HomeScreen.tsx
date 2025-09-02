@@ -49,7 +49,6 @@ export const HomeScreen: React.FC = () => {
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
         <View style={styles.header}>
           <View style={styles.avatarContainer}>
             <View style={styles.avatar}>
@@ -64,11 +63,9 @@ export const HomeScreen: React.FC = () => {
           </Text>
         </View>
 
-        {/* User Information Cards */}
         <View style={styles.infoSection}>
           <Text style={styles.sectionTitle}>Account Information</Text>
           
-          {/* Name Card */}
           <View style={styles.infoCard}>
             <View style={styles.infoIcon}>
               <Icon name="user" size={24} color="#007AFF" />
@@ -79,7 +76,6 @@ export const HomeScreen: React.FC = () => {
             </View>
           </View>
 
-          {/* Email Card */}
           <View style={styles.infoCard}>
             <View style={styles.infoIcon}>
               <Icon name="email" size={24} color="#007AFF" />
@@ -90,7 +86,6 @@ export const HomeScreen: React.FC = () => {
             </View>
           </View>
 
-          {/* User ID Card */}
           <View style={styles.infoCard}>
             <View style={styles.infoIcon}>
               <Icon name="id-card" size={24} color="#007AFF" />
@@ -101,7 +96,6 @@ export const HomeScreen: React.FC = () => {
             </View>
           </View>
 
-          {/* Member Since Card */}
           <View style={styles.infoCard}>
             <View style={styles.infoIcon}>
               <Icon name="calendar" size={24} color="#007AFF" />
@@ -115,14 +109,12 @@ export const HomeScreen: React.FC = () => {
           </View>
         </View>
 
-        {/* Success Message */}
         <MessageCard
           type="success"
           title="Authentication Successful"
           message="Your session is secure and all features are available."
         />
 
-        {/* Quick Actions */}
         <View style={styles.actionsSection}>
           <Text style={styles.sectionTitle}>Quick Actions</Text>
           
@@ -149,7 +141,6 @@ export const HomeScreen: React.FC = () => {
           </View>
         </View>
 
-        {/* Logout Button */}
         <Button
           title="Sign Out"
           variant="danger"

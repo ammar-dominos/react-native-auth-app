@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import { colors, typography, spacing, borderRadius, shadows } from './theme';
 
 export const commonStyles = StyleSheet.create({
-  // Container styles
   container: {
     flex: 1,
     backgroundColor: colors.background.secondary,
@@ -26,7 +25,6 @@ export const commonStyles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
   },
 
-  // Card styles
   card: {
     backgroundColor: colors.background.primary,
     borderRadius: borderRadius.xl,
@@ -45,7 +43,6 @@ export const commonStyles = StyleSheet.create({
     ...shadows.md,
   },
 
-  // Input styles
   inputContainer: {
     marginBottom: spacing.lg,
   },
@@ -78,7 +75,6 @@ export const commonStyles = StyleSheet.create({
     backgroundColor: colors.error[50],
   },
 
-  // Button styles
   buttonPrimary: {
     backgroundColor: colors.primary[600],
     borderRadius: borderRadius.lg,
@@ -147,7 +143,6 @@ export const commonStyles = StyleSheet.create({
     color: colors.primary[600],
   },
 
-  // Typography styles
   heading1: {
     fontSize: typography.fontSizes['4xl'],
     fontWeight: typography.fontWeights.bold,
@@ -190,7 +185,6 @@ export const commonStyles = StyleSheet.create({
     lineHeight: typography.lineHeights.normal * typography.fontSizes.sm,
   },
 
-  // Error styles
   errorContainer: {
     backgroundColor: colors.error[50],
     borderWidth: 1,
@@ -214,7 +208,6 @@ export const commonStyles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // Success styles
   successContainer: {
     backgroundColor: colors.success[50],
     borderWidth: 1,
@@ -231,7 +224,6 @@ export const commonStyles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // Info styles
   infoContainer: {
     backgroundColor: colors.primary[50],
     borderWidth: 1,
@@ -248,7 +240,6 @@ export const commonStyles = StyleSheet.create({
     lineHeight: typography.lineHeights.normal * typography.fontSizes.sm,
   },
 
-  // Navigation styles
   linkText: {
     color: colors.primary[600],
     fontSize: typography.fontSizes.base,
@@ -261,7 +252,6 @@ export const commonStyles = StyleSheet.create({
     textDecorationLine: 'none',
   },
 
-  // Loading styles
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -276,7 +266,6 @@ export const commonStyles = StyleSheet.create({
     marginTop: spacing.md,
   },
 
-  // Header styles
   header: {
     alignItems: 'center',
     marginBottom: spacing['2xl'],
@@ -289,7 +278,6 @@ export const commonStyles = StyleSheet.create({
     paddingTop: spacing.lg,
   },
 
-  // Divider styles
   divider: {
     height: 1,
     backgroundColor: colors.border.light,

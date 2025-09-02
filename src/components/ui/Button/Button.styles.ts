@@ -10,7 +10,6 @@ export const buttonStyles = StyleSheet.create({
     ...shadows.md,
   },
   
-  // Sizes
   small: {
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md,
@@ -24,7 +23,6 @@ export const buttonStyles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
   },
 
-  // Variants
   primary: {
     backgroundColor: colors.primary[600],
   },
@@ -47,7 +45,6 @@ export const buttonStyles = StyleSheet.create({
     ...shadows.sm,
   },
 
-  // Text styles
   text: {
     fontWeight: typography.fontWeights.semibold,
     color: colors.text.inverse,

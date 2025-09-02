@@ -1,6 +1,4 @@
-// Colors
 export const colors = {
-  // Primary brand colors
   primary: {
     50: '#eff6ff',
     100: '#dbeafe',
@@ -14,7 +12,6 @@ export const colors = {
     900: '#1e3a8a',
   },
   
-  // Secondary colors
   secondary: {
     50: '#f0f9ff',
     100: '#e0f2fe',
@@ -28,7 +25,6 @@ export const colors = {
     900: '#0c4a6e',
   },
 
-  // Success colors
   success: {
     50: '#f0fdf4',
     100: '#dcfce7',
@@ -42,7 +38,6 @@ export const colors = {
     900: '#14532d',
   },
 
-  // Error colors
   error: {
     50: '#fef2f2',
     100: '#fee2e2',
@@ -56,7 +51,6 @@ export const colors = {
     900: '#7f1d1d',
   },
 
-  // Warning colors
   warning: {
     50: '#fffbeb',
     100: '#fef3c7',
@@ -70,7 +64,6 @@ export const colors = {
     900: '#78350f',
   },
 
-  // Neutral colors
   neutral: {
     50: '#fafafa',
     100: '#f5f5f5',
@@ -84,14 +77,12 @@ export const colors = {
     900: '#171717',
   },
 
-  // Background colors
   background: {
     primary: '#ffffff',
     secondary: '#f8fafc',
     tertiary: '#f1f5f9',
   },
 
-  // Text colors
   text: {
     primary: '#0f172a',
     secondary: '#475569',
@@ -99,7 +90,6 @@ export const colors = {
     inverse: '#ffffff',
   },
 
-  // Border colors
   border: {
     light: '#e2e8f0',
     medium: '#cbd5e1',
@@ -107,7 +97,6 @@ export const colors = {
   },
 };
 
-// Typography
 export const typography = {
   fontSizes: {
     xs: 12,
@@ -136,7 +125,6 @@ export const typography = {
   },
 };
 
-// Spacing
 export const spacing = {
   xs: 4,
   sm: 8,
@@ -149,7 +137,6 @@ export const spacing = {
   '5xl': 96,
 };
 
-// Border radius
 export const borderRadius = {
   none: 0,
   sm: 4,
@@ -160,7 +147,6 @@ export const borderRadius = {
   full: 9999,
 };
 
-// Shadows
 export const shadows = {
   sm: {
     shadowColor: '#000',

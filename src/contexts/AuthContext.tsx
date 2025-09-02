@@ -2,21 +2,18 @@ import React, { createContext, useContext, useReducer, useEffect, ReactNode } fr
 import { User, AuthState, LoginCredentials, SignupCredentials, AuthContextType } from '../types/auth';
 import { authService } from '../services';
 
-// Initial state
 const initialState: AuthState = {
   user: null,
   isLoading: true,
   isAuthenticated: false,
 };
 
-// Action types
 type AuthAction =
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'LOGIN_SUCCESS'; payload: User }
   | { type: 'LOGOUT' }
   | { type: 'RESTORE_USER'; payload: User | null };
 
-// Reducer
 const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
     case 'SET_LOADING':
@@ -50,10 +47,8 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   }
 };
 
-// Create context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Provider component
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -61,7 +56,6 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  // Restore user session on app start
   useEffect(() => {
     restoreUser();
   }, []);
@@ -81,7 +75,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Login function
   const login = async (credentials: LoginCredentials): Promise<void> => {
     try {
       console.log('Attempting login for:', credentials.email);
@@ -98,7 +91,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Signup function
   const signup = async (credentials: SignupCredentials): Promise<void> => {
     try {
       console.log('Attempting signup for:', credentials.email);
@@ -115,7 +107,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Logout function
   const logout = async (): Promise<void> => {
     try {
       console.log('Attempting logout...');
@@ -132,14 +123,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Context value
   const value: AuthContextType = {
-    // State
     user: state.user,
     isLoading: state.isLoading,
     isAuthenticated: state.isAuthenticated,
     
-    // Actions
     login,
     signup,
     logout,
@@ -152,7 +140,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook to use auth context
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (context === undefined) {

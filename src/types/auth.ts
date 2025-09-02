@@ -23,12 +23,10 @@ export interface SignupCredentials {
 }
 
 export interface AuthContextType {
-  // State
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   
-  // Actions
   login: (credentials: LoginCredentials) => Promise<void>;
   signup: (credentials: SignupCredentials) => Promise<void>;
   logout: () => Promise<void>;

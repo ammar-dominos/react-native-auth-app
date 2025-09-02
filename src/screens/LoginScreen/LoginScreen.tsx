@@ -46,8 +46,7 @@ export const LoginScreen: React.FC = () => {
 
     try {
       const values = getValues();
-      await login({ email: values.email, password: values.password });
-      // Navigation will be handled by the auth context
+      await login({ email: values.email.trim(), password: values.password });
     } catch (error) {
       showErrorAlert(
         'Login Failed',
@@ -72,7 +71,6 @@ export const LoginScreen: React.FC = () => {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Header Section */}
           <View style={styles.header}>
             <View style={styles.logoContainer}>
               <View style={styles.logo}>
@@ -87,7 +85,7 @@ export const LoginScreen: React.FC = () => {
             </Text>
           </View>
 
-          {/* Form Section */}
+          
           <View style={styles.formCard}>
             <Input
               label="Email"
@@ -122,7 +120,7 @@ export const LoginScreen: React.FC = () => {
             />
           </View>
 
-          {/* Navigation Section */}
+          
           <View style={styles.navigationContainer}>
             <Text style={styles.navigationText}>
               Don't have an account?{' '}

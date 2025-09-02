@@ -5470,7 +5470,7 @@ react-refresh@^0.14.0, react-refresh@^0.14.2:
 
 react-test-renderer@19.1.1:
   version "19.1.1"
-  resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-19.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-19.1.1.tgz#c1e57b7a9c7291e3f52c489022071ac39f55155a"
   integrity sha512-aGRXI+zcBTtg0diHofc7+Vy97nomBs9WHHFY1Csl3iV0x6xucjNYZZAkiVKGiNYUv23ecOex5jE67t8ZzqYObA==
   dependencies:
     react-is "^19.1.1"
@@ -5641,7 +5641,7 @@ scheduler@0.25.0:
 
 scheduler@^0.26.0:
   version "0.26.0"
-  resolved "https://registry.npmjs.org/scheduler/-/scheduler-0.26.0.tgz"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.26.0.tgz#4ce8a8c2a2095f13ea11bf9a445be50c555d6337"
   integrity sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==
 
 semver@^6.3.0, semver@^6.3.1:

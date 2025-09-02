@@ -4,12 +4,10 @@ import { Alert } from 'react-native';
 import { DashboardScreen } from '../DashboardScreen';
 import { useAuth } from '../../../contexts';
 
-// Mock the useAuth hook
 jest.mock('../../../contexts', () => ({
   useAuth: jest.fn(),
 }));
 
-// Mock Alert
 jest.spyOn(Alert, 'alert');
 
 describe('DashboardScreen', () => {
@@ -40,7 +38,6 @@ describe('DashboardScreen', () => {
   it('renders correctly with user information', () => {
     const rendered = render(<DashboardScreen />);
     
-    // Just check that the component renders without crashing
     expect(rendered).toBeTruthy();
   });
 

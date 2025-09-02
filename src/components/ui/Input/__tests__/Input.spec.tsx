@@ -18,7 +18,6 @@ describe('Input', () => {
       <Input label="Test Label" value="" onChangeText={mockOnChangeText} />
     );
     
-    // Test passes if component renders without error
     expect(component).toBeTruthy();
     expect(mockOnChangeText).toBeDefined();
   });
@@ -60,7 +59,6 @@ describe('Input', () => {
       />
     );
     
-    // Helper text should not be present when error exists
     expect(queryByText('This is helper text')).toBeNull();
   });
 
@@ -94,7 +92,6 @@ describe('Input', () => {
       />
     );
     
-    // Test passes if component renders without error
     expect(component).toBeTruthy();
     expect(mockOnFocus).toBeDefined();
     expect(mockOnBlur).toBeDefined();

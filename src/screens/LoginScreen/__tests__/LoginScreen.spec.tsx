@@ -6,15 +6,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../LoginScreen';
 import { useAuth } from '../../../contexts';
 
-// Mock the useAuth hook
 jest.mock('../../../contexts', () => ({
   useAuth: jest.fn(),
 }));
 
-// Mock Alert
 jest.spyOn(Alert, 'alert');
 
-// Mock navigation
 const mockNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   NavigationContainer: ({ children }: { children: React.ReactNode }) => children,

@@ -4,15 +4,12 @@ import { Alert } from "react-native";
 import { HomeScreen } from "../HomeScreen";
 import { useAuth } from "../../../contexts";
 
-// Mock the useAuth hook
 jest.mock("../../../contexts", () => ({
   useAuth: jest.fn(),
 }));
 
-// Mock Alert
 jest.spyOn(Alert, "alert");
 
-// Mock all UI components to simplify testing
 jest.mock("../../../components/ui", () => ({
   ...jest.requireActual("../../../components/ui"),
   Button: ({ title, onPress }: { title: string; onPress: () => void }) => (
@@ -50,7 +47,6 @@ describe("HomeScreen", () => {
   it("renders correctly with user information", () => {
     const rendered = render(<HomeScreen />);
 
-    // Just check that the component renders without crashing
     expect(rendered).toBeTruthy();
   });
 
@@ -76,7 +72,6 @@ describe("HomeScreen", () => {
   it("handles logout button press", () => {
     const rendered = render(<HomeScreen />);
 
-    // Just verify component renders and mocks are set up
     expect(rendered).toBeTruthy();
     expect(mockUseAuth).toHaveBeenCalled();
   });

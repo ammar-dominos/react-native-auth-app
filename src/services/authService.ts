@@ -14,10 +14,8 @@ export class AuthService {
    * Simulate login API call
    */
   async login(credentials: LoginCredentials): Promise<User> {
-    // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    // Mock validation
     if (!credentials.email || !credentials.password) {
       throw new Error('Email and password are required');
     }
@@ -30,7 +28,6 @@ export class AuthService {
       throw new Error('Password must be at least 6 characters');
     }
     
-    // Mock user data
     const user: User = {
       id: '1',
       email: credentials.email,
@@ -38,7 +35,6 @@ export class AuthService {
       createdAt: new Date().toISOString(),
     };
     
-    // Store user data
     await this.storeUserData(user);
     
     return user;
@@ -48,10 +44,8 @@ export class AuthService {
    * Simulate signup API call
    */
   async signup(credentials: SignupCredentials): Promise<User> {
-    // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    // Mock validation
     if (!credentials.name || !credentials.email || !credentials.password) {
       throw new Error('All fields are required');
     }
@@ -68,7 +62,6 @@ export class AuthService {
       throw new Error('Name must be at least 2 characters');
     }
     
-    // Mock user data
     const user: User = {
       id: '1',
       email: credentials.email,
@@ -76,7 +69,6 @@ export class AuthService {
       createdAt: new Date().toISOString(),
     };
     
-    // Store user data
     await this.storeUserData(user);
     
     return user;
@@ -86,10 +78,8 @@ export class AuthService {
    * Logout user and clear stored data
    */
   async logout(): Promise<void> {
-    // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 800));
     
-    // Clear stored data
     await Promise.all([
       AsyncStorage.removeItem(STORAGE_KEYS.USER),
       AsyncStorage.removeItem(STORAGE_KEYS.TOKEN),
@@ -128,5 +118,4 @@ export class AuthService {
   }
 }
 
-// Export singleton instance
 export const authService = new AuthService();

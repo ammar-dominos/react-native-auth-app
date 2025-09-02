@@ -10,23 +10,19 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { colors } from '../../../styles/theme';
 
 export type IconName = 
-  // Authentication & Security
   | 'lock'
   | 'eye'
   | 'eye-off'
   | 'shield'
   
-  // User & Profile
   | 'user'
   | 'person'
   | 'account'
   | 'id-card'
   
-  // Communication
   | 'email'
   | 'mail'
   
-  // Navigation & Actions
   | 'home'
   | 'dashboard'
   | 'logout'
@@ -36,7 +32,6 @@ export type IconName =
   | 'help'
   | 'notifications'
   
-  // General
   | 'check'
   | 'checkmark'
   | 'close'
@@ -51,23 +46,19 @@ export interface IconProps {
 }
 
 const iconMap: Record<IconName, { library: string; iconName: string }> = {
-  // Authentication & Security
   'lock': { library: 'MaterialIcons', iconName: 'lock' },
   'eye': { library: 'Feather', iconName: 'eye' },
   'eye-off': { library: 'Feather', iconName: 'eye-off' },
   'shield': { library: 'MaterialIcons', iconName: 'security' },
   
-  // User & Profile
   'user': { library: 'Feather', iconName: 'user' },
   'person': { library: 'MaterialIcons', iconName: 'person' },
   'account': { library: 'MaterialCommunityIcons', iconName: 'account' },
   'id-card': { library: 'MaterialIcons', iconName: 'badge' },
   
-  // Communication
   'email': { library: 'MaterialIcons', iconName: 'email' },
   'mail': { library: 'Feather', iconName: 'mail' },
   
-  // Navigation & Actions
   'home': { library: 'Feather', iconName: 'home' },
   'dashboard': { library: 'MaterialIcons', iconName: 'dashboard' },
   'logout': { library: 'MaterialIcons', iconName: 'logout' },
@@ -77,7 +68,6 @@ const iconMap: Record<IconName, { library: string; iconName: string }> = {
   'help': { library: 'Feather', iconName: 'help-circle' },
   'notifications': { library: 'Feather', iconName: 'bell' },
   
-  // General
   'check': { library: 'Feather', iconName: 'check' },
   'checkmark': { library: 'Ionicons', iconName: 'checkmark' },
   'close': { library: 'Feather', iconName: 'x' },

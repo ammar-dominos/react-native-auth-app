@@ -77,7 +77,6 @@ describe('Button', () => {
     
     expect(button).toBeDefined();
     
-    // Test press in and out animations
     fireEvent(button, 'pressIn');
     fireEvent(button, 'pressOut');
   });

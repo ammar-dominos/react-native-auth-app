@@ -35,7 +35,7 @@ export const SignupScreen: React.FC = () => {
       name: validateName,
       email: validateEmail,
       password: validatePassword,
-      confirmPassword: validatePassword, // We'll handle confirm password validation separately
+      confirmPassword: validatePassword,
     },
   });
 
@@ -44,7 +44,6 @@ export const SignupScreen: React.FC = () => {
       return;
     }
 
-    // Additional confirm password validation
     const values = getValues();
     const confirmPasswordValidation = validateConfirmPassword(values.password, values.confirmPassword);
     if (!confirmPasswordValidation.isValid) {
@@ -58,7 +57,6 @@ export const SignupScreen: React.FC = () => {
         email: values.email.trim(), 
         password: values.password 
       });
-      // Navigation will be handled by the parent component based on auth state
     } catch (error) {
       const errorMessage = (error as Error).message;
       showErrorAlert('Signup Failed', errorMessage || 'An error occurred during signup');
@@ -88,7 +86,6 @@ export const SignupScreen: React.FC = () => {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Header */}
           <View style={styles.header}>
             <View style={styles.logoContainer}>
               <View style={styles.logo}>
@@ -101,9 +98,7 @@ export const SignupScreen: React.FC = () => {
             </Text>
           </View>
 
-          {/* Form Card */}
           <View style={styles.formCard}>
-            {/* Name Input */}
             <Input
               label="Full Name"
               placeholder="Enter your full name"
@@ -115,7 +110,6 @@ export const SignupScreen: React.FC = () => {
               editable={!isLoading}
             />
 
-            {/* Email Input */}
             <Input
               label="Email Address"
               placeholder="Enter your email"
@@ -128,7 +122,6 @@ export const SignupScreen: React.FC = () => {
               editable={!isLoading}
             />
 
-            {/* Password Input */}
             <Input
               label="Password"
               placeholder="Create a password"
@@ -139,7 +132,6 @@ export const SignupScreen: React.FC = () => {
               editable={!isLoading}
             />
 
-            {/* Confirm Password Input */}
             <Input
               label="Confirm Password"
               placeholder="Confirm your password"
@@ -150,7 +142,6 @@ export const SignupScreen: React.FC = () => {
               editable={!isLoading}
             />
 
-            {/* Signup Button */}
             <Button
               title="Create Account"
               onPress={handleSignup}
@@ -161,7 +152,6 @@ export const SignupScreen: React.FC = () => {
               style={styles.signupButton}
             />
 
-            {/* Terms and Privacy */}
             <Text style={styles.termsText}>
               By creating an account, you agree to our{' '}
               <Text style={styles.termsLink}>Terms of Service</Text>
@@ -170,7 +160,6 @@ export const SignupScreen: React.FC = () => {
             </Text>
           </View>
 
-          {/* Navigation to Login */}
           <View style={styles.navigationContainer}>
             <Text style={styles.navigationText}>Already have an account? </Text>
             <TouchableOpacity

@@ -9,7 +9,6 @@ export const messageCardStyles = StyleSheet.create({
     borderWidth: 1,
   },
   
-  // Error styles
   errorContainer: {
     backgroundColor: colors.error[50],
     borderColor: colors.error[200],
@@ -27,7 +26,6 @@ export const messageCardStyles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // Success styles
   successContainer: {
     backgroundColor: colors.success[50],
     borderColor: colors.success[200],
@@ -45,7 +43,6 @@ export const messageCardStyles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // Info styles
   infoContainer: {
     backgroundColor: colors.primary[50],
     borderColor: colors.primary[200],
@@ -63,7 +60,6 @@ export const messageCardStyles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // Warning styles
   warningContainer: {
     backgroundColor: colors.warning[50],
     borderColor: colors.warning[200],
